@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عيد ميلاد سعيد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rakkas&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FFF6FA;
+    --paper-edge: #FFE1EE;
+    --pink: #FF6FA0;
+    --pink-deep: #D93C79;
+    --rose-dust: #FFBBD6;
+    --gold: #FF9AC1;
+    --mint: #FFFFFF;
+    --ink: #4A2138;
+    --ink-soft: #8A5170;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,111,160,0.08) 0, transparent 45%),
+      radial-gradient(circle at 85% 65%, rgba(255,111,160,0.06) 0, transparent 40%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  input[type="file"] { display: none; }
+
+  /* ============ BUNTING ============ */
+  .bunting {
+    position: relative;
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    padding-top: 10px;
+    overflow: hidden;
+  }
+  .bunting::before {
+    content: '';
+    position: absolute;
+    top: 10px; left: 0; right: 0;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--ink-soft) 0 8px, transparent 8px 14px);
+    opacity: 0.35;
+  }
+  .flag {
+    width: 26px;
+    height: 34px;
+    margin: 0 3px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform: translateY(1px) rotate(0.5deg);
+  }
+  .flag:nth-child(odd) { background: var(--pink); }
+  .flag:nth-child(3n) { background: #ffffff; border: 1.5px solid var(--rose-dust); }
+  .flag:nth-child(4n) { background: var(--pink-deep); transform: translateY(2px) rotate(-1deg); }
+
+  .emoji-doodle {
+    position: absolute;
+    font-size: 22px;
+    line-height: 1;
+    opacity: 0.45;
+    filter: grayscale(0.15);
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    position: relative;
+    padding: 30px 20px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .invite-card {
+    position: relative;
+    width: min(560px, 100%);
+    background: #FFFDF8;
+    padding: 56px 34px 70px;
+    text-align: center;
+    transform: rotate(-0.6deg);
+    box-shadow: 0 18px 34px rgba(67, 33, 52, 0.14), 0 2px 0 rgba(67,33,52,0.04);
+    clip-path: polygon(
+      1% 2%, 6% 0%, 13% 2.5%, 20% 0.5%, 27% 2%, 34% 0%, 41% 2.2%, 48% 0.3%,
+      55% 2%, 62% 0%, 69% 2.3%, 76% 0.4%, 83% 2%, 90% 0%, 97% 1.8%, 100% 0.5%,
+      100% 98%, 94% 100%, 87% 97.5%, 80% 100%, 73% 97.8%, 66% 100%, 59% 97.7%,
+      52% 100%, 45% 97.9%, 38% 100%, 31% 97.6%, 24% 100%, 17% 97.8%, 10% 100%,
+      3% 98.2%, 0% 99.5%, 0% 1.5%
+    );
+  }
+
+  .invite-eyebrow {
+    font-size: 0.95rem;
+    color: var(--pink-deep);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .invite-bow {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 4px;
+  }
+
+  /* kitten ears peeking above the invitation card */
+  .cat-ears {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 66px;
+    z-index: 2;
+  }
+  .cat-ears svg { width: 46px; height: 46px; filter: drop-shadow(0 3px 3px rgba(67,33,52,0.12)); }
+  .cat-ears svg:first-child { transform: rotate(-8deg); }
+  .cat-ears svg:last-child { transform: rotate(8deg); }
+
+  /* whisker doodles flanking the headline */
+  .whiskers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 10px 0 2px;
+  }
+  .whiskers svg { width: 74px; height: 22px; opacity: 0.55; }
+  .whiskers svg:last-child { transform: scaleX(-1); }
+
+  h1.headline {
+    font-family: 'Rakkas', 'Cairo', sans-serif;
+    font-weight: 400;
+    font-size: clamp(2.3rem, 7vw, 3.4rem);
+    color: var(--pink-deep);
+    line-height: 1.5;
+  }
+
+  h1.headline .accent {
+    color: var(--gold);
+    position: relative;
+  }
+  h1.headline .accent::after {
+    content: '';
+    position: absolute;
+    left: -4%; right: -4%; bottom: 6%;
+    height: 34%;
+    background: rgba(244,99,143,0.18);
+    z-index: -1;
+    transform: rotate(-1deg);
+  }
+
+  .subheadline {
+    margin-top: 8px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .editable {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: inherit;
+    font: inherit;
+  }
+  .editable:hover, .editable:focus {
+    background: rgba(244,99,143,0.1);
+    border-radius: 6px;
+  }
+
+  .divider-line {
+    margin: 30px auto 0;
+    width: 70%;
+    border-top: 1.5px dashed var(--rose-dust);
+    position: relative;
+  }
+
+  /* photo ticket, taped to bottom edge of the invite card, overlapping */
+  .photo-ticket {
+    position: absolute;
+    bottom: -46px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+    width: 172px;
+    z-index: 3;
+  }
+  .tape {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(2deg);
+    width: 70px;
+    height: 26px;
+    background: repeating-linear-gradient(45deg, rgba(255,111,160,0.5) 0 6px, rgba(255,255,255,0.6) 6px 12px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    z-index: 4;
+  }
+  .photo-frame {
+    background: #fff;
+    padding: 10px 10px 24px;
+    box-shadow: 0 10px 20px rgba(67,33,52,0.18);
+    cursor: pointer;
+    display: block;
+  }
+  .photo-frame .photo-box {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--paper-edge);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .photo-frame .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-frame .placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--pink-deep);
+    padding: 10px;
+  }
+  .photo-frame .placeholder-inner svg { width: 26px; height: 26px; }
+  .photo-frame .placeholder-inner span { font-size: 0.72rem; font-weight: 600; }
+
+  /* ============ SECTION SHELL ============ */
+  section.block {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .section-heading {
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .heading-doodles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 6px;
+  }
+  .heading-doodles span {
+    font-size: 22px;
+    line-height: 1;
+    display: inline-block;
+  }
+  .heading-doodles span:first-child { transform: rotate(-10deg); }
+  .heading-doodles span:last-child { transform: rotate(8deg); }
+  .section-heading h2 {
+    font-family: 'Rakkas', 'Cairo', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.7rem, 4vw, 2.3rem);
+    color: var(--pink-deep);
+    display: inline-block;
+    position: relative;
+  }
+  .section-heading p {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-top: 10px;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============ CORKBOARD GALLERY ============ */
+  .corkboard {
+    margin-top: 44px;
+    columns: 3 220px;
+    column-gap: 26px;
+  }
+  @media (max-width: 620px) { .corkboard { columns: 2 160px; } }
+
+  .pin-photo {
+    break-inside: avoid;
+    margin-bottom: 30px;
+    position: relative;
+    background: #fff;
+    padding: 8px 8px 20px;
+    box-shadow: 0 8px 18px rgba(67,33,52,0.13);
+    cursor: pointer;
+    display: block;
+  }
+  .pin-photo:nth-child(5n+1) { transform: rotate(-3deg); }
+  .pin-photo:nth-child(5n+2) { transform: rotate(2.5deg); }
+  .pin-photo:nth-child(5n+3) { transform: rotate(-1.5deg); }
+  .pin-photo:nth-child(5n+4) { transform: rotate(3.5deg); }
+  .pin-photo:nth-child(5n+5) { transform: rotate(-2.5deg); }
+  .pin-photo:hover { transform: scale(1.04) rotate(0deg); z-index: 2; }
+
+  .pin-dot {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-6deg);
+    font-size: 20px;
+    line-height: 1;
+    z-index: 2;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));
+  }
+
+  .pin-photo-box {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--paper-edge);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pin-photo-box img { width: 100%; height: 100%; object-fit: cover; }
+  .pin-photo-box .placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--pink-deep);
+    opacity: 0.75;
+  }
+  .pin-photo-box .placeholder-inner svg { width: 24px; height: 24px; }
+  .pin-photo-box .placeholder-inner span { font-size: 0.68rem; font-weight: 600; }
+
+  .pin-caption {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    transform: skewX(-3deg);
+  }
+
+  /* ============ ENVELOPE MESSAGE ============ */
+  .envelope-wrap {
+    position: relative;
+    max-width: 640px;
+    margin: 60px auto 0;
+  }
+
+  .envelope-flap {
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    border-left: clamp(90px, 42vw, 170px) solid transparent;
+    border-right: clamp(90px, 42vw, 170px) solid transparent;
+    border-top: clamp(48px, 22vw, 90px) solid var(--pink);
+    filter: drop-shadow(0 4px 6px rgba(67,33,52,0.1));
+  }
+
+  .envelope-body {
+    background: var(--pink);
+    margin-top: -1px;
+    padding: 34px 32px 44px;
+    text-align: center;
+    position: relative;
+  }
+
+  .wax-seal {
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58px;
+    height: 58px;
+    z-index: 3;
+  }
+
+  .envelope-body h2 {
+    font-family: 'Rakkas', 'Cairo', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 3.6vw, 1.85rem);
+    color: #fff;
+    margin: 20px 0 14px;
+  }
+
+  .envelope-body p {
+    color: rgba(255,255,255,0.95);
+    font-size: 1.05rem;
+    line-height: 1.9;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .envelope-body p[contenteditable]:focus {
+    outline: 1.5px dashed rgba(255,255,255,0.6);
+    outline-offset: 6px;
+    border-radius: 6px;
+  }
+
+  .insert-photo {
+    margin: 30px auto 0;
+    width: 220px;
+    background: #fffdf8;
+    padding: 8px 8px 20px;
+    transform: rotate(2deg);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.2);
+    cursor: pointer;
+    display: block;
+  }
+  .insert-photo .photo-box {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--paper-edge);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .insert-photo .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+  .insert-photo .placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--pink-deep);
+  }
+  .insert-photo .placeholder-inner svg { width: 26px; height: 26px; }
+  .insert-photo .placeholder-inner span { font-size: 0.75rem; font-weight: 600; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: 20px 20px 50px;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+  }
+  .footer-bunting { justify-content: center; margin-bottom: 14px; height: 30px; }
+  .footer-bunting .flag { width: 18px; height: 22px; }
+
+  .footer-caption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .footer-caption span:first-child, .footer-caption span:last-child {
+    font-size: 15px;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  /* ============ MOBILE ADJUSTMENTS ============ */
+  @media (max-width: 480px) {
+    .hero { padding: 24px 12px 70px; }
+    .invite-card { padding: 46px 18px 66px; }
+    .cat-ears { gap: 40px; }
+    .cat-ears svg { width: 38px; height: 38px; }
+    .whiskers { gap: 8px; }
+    .whiskers svg { width: 56px; height: 18px; }
+    section.block { padding: 32px 14px 60px; }
+    .envelope-body { padding: 30px 18px 40px; }
+    .insert-photo { width: 170px; }
+    .photo-ticket { width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bunting" id="bunting">
+  <span class="emoji-doodle" style="top:-3px; left:42%; transform:rotate(-8deg);">🍓</span>
+  <span class="emoji-doodle" style="top:-3px; left:58%; transform:rotate(10deg);">🧂</span>
+  <span class="emoji-doodle" style="top:9px; left:46%; transform:rotate(6deg);">🧂</span>
+  <span class="emoji-doodle" style="top:9px; left:54%; transform:rotate(-10deg);">🍓</span>
+</div>
+
+<!-- ============ HERO / INVITATION CARD ============ -->
+<section class="hero">
+  <div class="invite-card">
+    <div class="cat-ears">
+      <svg viewBox="0 0 60 60"><path d="M30 55 L4 6 C4 6 34 -2 44 22 C50 36 40 50 30 55 Z" fill="#FFFDF8" stroke="#B93862" stroke-width="2.5"/><path d="M28 45 L14 14 C14 14 32 12 37 28 C40 37 33 43 28 45 Z" fill="#F4638F"/></svg>
+      <svg viewBox="0 0 60 60"><path d="M30 55 L56 6 C56 6 26 -2 16 22 C10 36 20 50 30 55 Z" fill="#FFFDF8" stroke="#B93862" stroke-width="2.5"/><path d="M32 45 L46 14 C46 14 28 12 23 28 C20 37 27 43 32 45 Z" fill="#F4638F"/></svg>
+    </div>
+
+    <div class="invite-eyebrow">أنتِ مدعوة للاحتفال</div>
+
+    <svg class="invite-bow" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="55" r="30" fill="#FFFDF8" stroke="#B93862" stroke-width="2.5"/>
+      <path d="M50 55 C50 55 20 25 8 35 C-2 45 10 67 50 55 Z" fill="#F4638F" stroke="#B93862" stroke-width="2"/>
+      <path d="M50 55 C50 55 80 25 92 35 C102 45 90 67 50 55 Z" fill="#F4638F" stroke="#B93862" stroke-width="2"/>
+      <circle cx="50" cy="55" r="7" fill="#FFFFFF" stroke="#B93862" stroke-width="2"/>
+      <ellipse cx="40" cy="50" rx="3.5" ry="4.5" fill="#432134"/>
+      <ellipse cx="60" cy="50" rx="3.5" ry="4.5" fill="#432134"/>
+      <path d="M50 60 q-3 3 -6 0" stroke="#432134" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M50 60 q3 3 6 0" stroke="#432134" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M46 58 L50 60 L54 58" stroke="#432134" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+    <h1 class="headline">
+      عيد ميلاد سعيد يا<br>
+      <span contenteditable="true" class="editable accent" id="nameField">حبيبتي</span>
+    </h1>
+
+    <div class="whiskers">
+      <svg viewBox="0 0 74 22"><path d="M2 4 Q40 10 72 2" stroke="#B93862" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M2 11 Q40 12 72 11" stroke="#B93862" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M2 18 Q40 12 72 20" stroke="#B93862" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 74 22"><path d="M2 4 Q40 10 72 2" stroke="#B93862" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M2 11 Q40 12 72 11" stroke="#B93862" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M2 18 Q40 12 72 20" stroke="#B93862" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </div>
+
+
+    <div class="divider-line"></div>
+
+    <div class="photo-ticket">
+      <div class="tape"></div>
+      <label class="photo-frame" id="heroFrame">
+        <input type="file" accept="image/*" data-target="heroFrame">
+        <div class="photo-box">
+          <img src="images/birthday-cake-v0-ie8nffx969if1.webp" alt="كيكة عيد الميلاد">
+        </div>
+      </label>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="block">
+  <div class="section-heading">
+    <div class="heading-doodles">
+      <span>🍓</span>
+      <span>🧂</span>
+    </div>
+    <h2>أجمل اللحظات</h2>
+    <p>حائط ذكريات صغير — اضغطي على أي صورة لتغيرينها</p>
+  </div>
+  <div class="corkboard" id="corkboard"></div>
+</section>
+
+<!-- ============ MESSAGE ENVELOPE ============ -->
+<section class="block">
+  <div class="envelope-wrap">
+    <div class="envelope-flap"></div>
+    <div class="envelope-body">
+      <svg class="wax-seal" viewBox="0 0 100 100" fill="none">
+        <circle cx="50" cy="50" r="46" fill="#B93862"/>
+        <path d="M34 26 L20 4 C20 4 40 2 46 16 Z" fill="#B93862"/>
+        <path d="M66 26 L80 4 C80 4 60 2 54 16 Z" fill="#B93862"/>
+        <circle cx="50" cy="52" r="30" fill="#FFFDF8"/>
+        <path d="M50 55 C50 55 30 32 20 40 C11 48 22 66 50 55 Z" fill="#F4638F"/>
+        <path d="M50 55 C50 55 70 32 80 40 C89 48 78 66 50 55 Z" fill="#F4638F"/>
+        <circle cx="50" cy="55" r="6" fill="#FFFFFF"/>
+        <ellipse cx="41" cy="49" rx="3" ry="4" fill="#432134"/>
+        <ellipse cx="59" cy="49" rx="3" ry="4" fill="#432134"/>
+        <path d="M45 59 q5 4 10 0" stroke="#432134" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      <h2>أجمل التمنيات ليومكِ 🎂</h2>
+      <p contenteditable="true" id="messageField">فرح يا حبيبتي، أتمنى أن يكون عيد ميلادش مليان باللحظات السعيدة مع عائلتش، وأنا فخور بش يا مشاغبتي. عيد ميلاد سعيد!</p>
+
+      <label class="insert-photo" id="bannerFrame">
+        <input type="file" accept="image/*" data-target="bannerFrame">
+        <div class="photo-box">
+          <img src="images/meandheraskids.jpg" alt="Mean and her as kids" />
+        </div>
+      </label>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="bunting footer-bunting" id="footerBunting"></div>
+  <div class="footer-caption">
+    <span>🍓</span>
+    <span>صُنع بحب 🎀 — اضغطي على أي صورة لإضافة صوركِ الخاصة</span>
+    <span>🧂</span>
+  </div>
+</footer>
+
+<script>
+  function buildBunting(containerId, count) {
+    const el = document.getElementById(containerId);
+    for (let i = 0; i < count; i++) {
+      const f = document.createElement('div');
+      f.className = 'flag';
+      el.appendChild(f);
+    }
+  }
+  buildBunting('bunting', 13);
+  buildBunting('footerBunting', 9);
+
+  const corkboard = document.getElementById('corkboard');
+  const galleryPhotos = [
+    { src: 'images/bracelet.jpg', caption: 'الأسورة' },
+    { src: 'images/countdownshemadetowheniwascomingtoher.jpg', caption: 'العد التنازلي' },
+    { src: 'images/eyes.jpg', caption: 'العينين' },
+    { src: 'images/herwithhenna.jpg', caption: 'مع الحناء' },
+    { src: 'images/meandherinminecraft.jpg', caption: 'Minecraft' },
+    { src: 'images/meandherinminecraft again.jpg', caption: 'Minecraft مجددًا' },
+    { src: 'images/pictureofhergoingtomekka.jpg', caption: 'رحلة مكة' }
+  ];
+  const pinEmojis = ['🍓', '🧂'];
+  galleryPhotos.forEach((photo, i) => {
+    const id = 'pin-' + i;
+    const wrap = document.createElement('label');
+    wrap.className = 'pin-photo';
+    wrap.innerHTML = `
+      <input type="file" accept="image/*" data-target="${id}">
+      <div class="pin-dot">${pinEmojis[i % pinEmojis.length]}</div>
+      <div class="pin-photo-box" id="${id}">
+        <img src="${photo.src}" alt="${photo.caption}">
+      </div>
+      <div class="pin-caption" contenteditable="true">${photo.caption}</div>
+    `;
+    corkboard.appendChild(wrap);
+  });
+
+  document.body.addEventListener('change', (e) => {
+    const input = e.target;
+    if (input.tagName !== 'INPUT' || input.type !== 'file') return;
+    const file = input.files[0];
+    if (!file) return;
+    const targetId = input.getAttribute('data-target');
+    const container = document.getElementById(targetId);
+    if (!container) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      container.innerHTML = `<img src="${ev.target.result}" alt="uploaded photo">`;
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+
+</body>
+</html>
